@@ -1,0 +1,104 @@
+
+#txt_DC1_DMZ p:hover, #txt_DC2_DMZ p:hover,
+#txt_DC1_INT p:hover, #txt_DC2_INT p:hover, 
+#txt_DC1_SIA p:hover, #txt_DC2_SIA p:hover {
+    position: absolute;
+    transform: scale(2);
+    z-index:3;
+    transition: all 0.8s ease-in-out;
+}
+
+dialog::backdrop {
+    background-color: hsl(200, 100%, 50%, 0.5);
+}
+
+.modal_DC1_DMZ, .modal_DC2_DMZ, 
+.modal_DC1_INT, .modal_DC2_INT,
+.modal_DC1_SIA, .modal_DC2_SIA {
+    top:50%;
+    left:50%;
+    translate: -50% -50%;
+    width:90%;
+    height:90vh;
+}
+
+
+.modal_DC1_DMZ button, .modal_DC2_DMZ button,
+.modal_DC1_INT button, .modal_DC2_INT button,
+.modal_DC1_SIA button, .modal_DC2_SIA button {
+    margin-top:5%;
+    vertical-align: center;
+    transform: scale(1.4);
+}
+
+/*****/
+
+.modal_DC1_DMZ button:hover img {
+    /* transform:translateX(30px); */
+    animation-name: anim_graph_DC1_DMZ;
+    animation-duration: 1.5s;
+    animation-iteration-count: 1;
+    animation-timing-function:ease-out;
+}
+@keyframes anim_graph_DC1_DMZ {
+    0%   {transform:scale(2) translateX(-100%) translateY(-100%) rotateX(90deg) rotateY(90deg);}
+}
+
+.modal_DC2_DMZ button:hover img {
+    /* transform:translateX(30px); */
+    animation-name: anim_graph_DC2_DMZ;
+    animation-duration: 1.5s;
+    animation-iteration-count: 1;
+    animation-timing-function:ease-out;
+}
+@keyframes anim_graph_DC2_DMZ {
+    0%   {transform:scale(2) translateX(100%) translateY(-100%) rotateX(90deg) rotateY(-90deg);}
+}
+
+/*****/
+
+.modal_DC1_INT button:hover img {
+    /* transform:translateX(30px); */
+    animation-name: anim_graph_DC1_INT;
+    animation-duration: 1.5s;
+    animation-iteration-count: 1;
+    animation-timing-function:ease-out;
+}
+@keyframes anim_graph_DC1_INT {
+    0%   {transform:scale(2) translateX(-100%) rotateX(90deg) rotateY(90deg);}
+}
+
+.modal_DC2_INT button:hover img {
+    /* transform:translateX(30px); */
+    animation-name: anim_graph_DC2_INT;
+    animation-duration: 1.5s;
+    animation-iteration-count: 1;
+    animation-timing-function:ease-out;
+}
+@keyframes anim_graph_DC2_INT {
+    0%   {transform:scale(2) translateX(100%) rotateX(90deg) rotateY(-90deg);}
+}
+
+/*****/
+
+.modal_DC1_SIA button:hover img {
+    /* transform:translateX(30px); */
+    animation-name: anim_graph_DC1_SIA;
+    animation-duration: 1.5s;
+    animation-iteration-count: 1;
+    animation-timing-function:ease-out;
+}
+@keyframes anim_graph_DC1_SIA {
+    0%   {transform:scale(2) translateX(-100%) translateY(100%) rotateX(90deg) rotateY(90deg);}
+}
+
+.modal_DC2_SIA button:hover img {
+    /* transform:translateX(30px); */
+    animation-name: anim_graph_DC2_SIA;
+    animation-duration: 1.5s;
+    animation-iteration-count: 1;
+    animation-timing-function:ease-out;
+}
+@keyframes anim_graph_DC2_SIA {
+    0%   {transform:scale(2) translateX(100%) translateY(100%) rotateX(90deg) rotateY(-90deg);}
+}

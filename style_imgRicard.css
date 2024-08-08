@@ -1,0 +1,172 @@
+* { 
+    margin : 0;
+    padding : 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to right, rgb(224, 210, 77, 0.8) 30%, rgb(129, 207, 77, 0.8) 100%);
+}
+
+#titre {
+    margin: 20px auto;
+    padding:10px;
+    /* text-align: center; */
+
+    width:90%;
+    height:fit-content;
+    border: 4px inset blue;
+    border-radius: 10px;
+}
+
+#titre p {
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+}
+#titre p b {
+    color: #00226D;
+}
+
+.grid-container {
+    margin: auto;
+    /* margin: 20px; */
+    width:90%;
+    /* height:20vh; */
+    display: grid;
+    gap: 30px 50px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.cell {
+    position: relative;
+    margin: 15px;
+    min-height: 40vh;
+    text-align: center;
+    border : 30px solid #FFC700;
+    border-radius : 10px;
+}
+
+#txt_DC1_DMZ, #txt_DC2_DMZ,
+#txt_DC1_INT, #txt_DC2_INT,
+#txt_DC1_SIA, #txt_DC2_SIA {
+    position: absolute;
+    width:100%;
+    height: 100%;
+    font-style:italic;
+    font-weight: bolder;
+    font-size: 40px;
+    color:#00226D;
+    border: 8px solid #00226D;
+    border-radius : 5px;
+}
+#txt_DC1_DMZ p, #txt_DC2_DMZ p,
+#txt_DC1_INT p, #txt_DC2_INT p,
+#txt_DC1_SIA p, #txt_DC2_SIA p  {
+    position: absolute;
+    top:50%;
+    left:50%;
+    translate: -50% -50%;
+}
+
+/************************/
+/* Animation partie DMZ */
+.img_DC1_DMZ , .img_DC2_DMZ  {
+    position: absolute;
+    top:25%;
+    left:70%;
+    transform: scale(0.4);
+    z-index:2;
+    transition: all 0.8s ease-in-out;
+}
+.DC1_DMZ:hover .img_DC1_DMZ   {
+    top:0%;
+    left:-10%;
+    transform: scale(0.6) rotate(330deg);
+}
+.DC2_DMZ:hover .img_DC2_DMZ  {
+    top:-10%;
+    transform: scale(0.6) rotate(-60deg);
+}
+
+/************************/
+/* Animation partie INT */
+.img_DC1_INT  {
+    position: absolute;
+    top:15%;
+    left:65%;
+    transform: scale(0.6);
+    z-index:2;
+    transition: all 0.3s ease-in-out;
+}
+.DC1_INT:hover .img_DC1_INT {
+    animation-name: anim_DC1_INT;
+    animation-duration: 2.5s;
+}
+@keyframes anim_DC1_INT {
+    0%   {top:15%; left:65%;}
+    20%  {top:-90%; left:65%;}
+    40%  {top:-90%; left:35%;}
+    60%  {top:-90%; left:35%; transform: rotate(-150deg);}
+    60%  {top:-90%; left:35%; transform: rotate(-100deg);}
+    80%  {top:-80%; left:65%;}
+    100% {top:15%; left:65%;}
+}
+
+.img_DC2_INT  {
+    position: absolute;
+    top:15%;
+    left:60%;
+    transform: scale(0.6) rotate(330deg);
+    z-index:2;
+}
+.DC2_INT:hover .img_DC2_INT {
+    animation-name: anim_DC2_INT;
+    animation-duration: 2.5s;
+}
+@keyframes anim_DC2_INT {
+    0%   {top:15%; left:60%;}
+    25%  {top:-60%; left:60%; transform: rotate(30deg)}
+    50%  {top:25%; left:60%;}
+    75%  {top:-40%; left:60%;}
+    100% {top:15%; left:60%;}
+}
+
+/************************/
+/* Animation partie SIA */
+.img_DC1_SIA , .img_DC2_SIA  {
+    position: absolute;
+    top:15%;
+    left:85%;
+    transform: scale(0.9) rotate(15deg);
+    z-index:2;
+    transition: all 0.8s ease-in-out;
+}
+.img_DC1_SIA_verre , .img_DC2_SIA_verre  {
+    position: absolute;
+    top:25%;
+    left:70%;
+    transform: scale(0.4);
+    z-index:2;
+    opacity:0;
+    transition: all 0.8s ease-in-out;
+}
+
+.DC1_SIA:hover .img_DC1_SIA , .DC2_SIA:hover .img_DC2_SIA {
+    top:-65%;
+    left:50%;
+    transform: scale(1.2) rotate(115deg);
+}
+
+.DC1_SIA:hover .img_DC1_SIA_verre , .DC2_SIA:hover .img_DC2_SIA_verre {
+    opacity:1;
+}
+
+
+.piedpage {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin : 50px;
+    padding : 10px;
+}

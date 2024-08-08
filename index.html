@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { margin : 0;
+            padding : 0;
+            box-sizing: border-box;}
+
+        body {background: linear-gradient(to right, rgb(224, 210, 77, 0.8) 30%, rgb(129, 207, 77, 0.8) 100%);}
+
+        #titre {margin: 20px auto;
+                padding:10px;
+                /* text-align: center; */
+                width:90%;
+                height:fit-content;
+                border: 4px inset blue;
+                border-radius: 10px;}
+
+        #titre p {color: white;
+                font-size: 40px;
+                font-weight: bold;}
+
+        #titre p b {color: #00226D;}
+
+        .grid-container {margin: auto;
+                        /* margin: 20px; */
+                        width:90%;
+                        /* height:20vh; */
+                        display: grid;
+                        gap: 30px 50px;
+                        grid-template-columns: 1fr 1fr;}
+
+        .cell {position: relative;
+                margin: 15px;
+                min-height: 40vh;
+                text-align: center;
+                border : 30px solid #FFC700;
+                border-radius : 10px;}
+
+        #txt_DC1_DMZ, #txt_DC2_DMZ,
+        #txt_DC1_INT, #txt_DC2_INT,
+        #txt_DC1_SIA, #txt_DC2_SIA {position: absolute;
+                                    width:100%;
+                                    height: 100%;
+                                    font-style:italic;
+                                    font-weight: bolder;
+                                    font-size: 40px;
+                                    color:#00226D;
+                                    border: 8px solid #00226D;
+                                    border-radius : 5px;}
+
+        #txt_DC1_DMZ p, #txt_DC2_DMZ p,
+        #txt_DC1_INT p, #txt_DC2_INT p,
+        #txt_DC1_SIA p, #txt_DC2_SIA p  {position: absolute;
+                                        top:50%;
+                                        left:50%;
+                                        translate: -50% -50%;}
+
+    /************************/
+    /* Animation partie DMZ */
+        .img_DC1_DMZ , .img_DC2_DMZ  {position: absolute;
+                                    top:25%;
+                                    left:70%;
+                                    transform: scale(0.4);
+                                    z-index:2;
+                                    transition: all 0.8s ease-in-out;}
+
+        .DC1_DMZ:hover .img_DC1_DMZ   {top:0%;
+                                    left:-10%;
+                                    transform: scale(0.6) rotate(330deg);}
+
+        .DC2_DMZ:hover .img_DC2_DMZ  {top:-10%;
+                                    transform: scale(0.6) rotate(-60deg);}
+
+    /************************/
+    /* Animation partie INT */
+        .img_DC1_INT  {position: absolute;
+                        top:15%;
+                        left:65%;
+                        transform: scale(0.6);
+                        z-index:2;
+                        transition: all 0.3s ease-in-out;}
+
+        .DC1_INT:hover .img_DC1_INT {animation-name: anim_DC1_INT;
+                                    animation-duration: 2.5s;}
+
+        @keyframes anim_DC1_INT {
+            0%   {top:15%; left:65%;}
+            20%  {top:-90%; left:65%;}
+            40%  {top:-90%; left:35%;}
+            60%  {top:-90%; left:35%; transform: rotate(-150deg);}
+            60%  {top:-90%; left:35%; transform: rotate(-100deg);}
+            80%  {top:-80%; left:65%;}
+            100% {top:15%; left:65%;}
+        }
+
+        .img_DC2_INT  {position: absolute;
+                        top:15%;
+                        left:60%;
+                        transform: scale(0.6) rotate(330deg);
+                        z-index:2;}
+
+        .DC2_INT:hover .img_DC2_INT {animation-name: anim_DC2_INT;
+                                    animation-duration: 2.5s;}
+
+        @keyframes anim_DC2_INT {
+            0%   {top:15%; left:60%;}
+            25%  {top:-60%; left:60%; transform: rotate(30deg)}
+            50%  {top:25%; left:60%;}
+            75%  {top:-40%; left:60%;}
+            100% {top:15%; left:60%;}
+        }
+
+    /************************/
+    /* Animation partie SIA */
+        .img_DC1_SIA ,
+        .img_DC2_SIA  {position: absolute;
+                        top:15%;
+                        left:85%;
+                        transform: scale(0.9) rotate(15deg);
+                        z-index:2;
+                        transition: all 0.8s ease-in-out;}
+
+        .img_DC1_SIA_verre ,
+        .img_DC2_SIA_verre  {position: absolute;
+                            top:25%;
+                            left:70%;
+                            transform: scale(0.4);
+                            z-index:2;
+                            opacity:0;
+                            transition: all 0.8s ease-in-out;}
+
+        .DC1_SIA:hover .img_DC1_SIA ,
+        .DC2_SIA:hover .img_DC2_SIA {top:-65%;
+                                    left:50%;
+                                    transform: scale(1.2) rotate(115deg);}
+
+        .DC1_SIA:hover .img_DC1_SIA_verre ,
+        .DC2_SIA:hover .img_DC2_SIA_verre {opacity:1;}
+
+        .piedpage {display:flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    margin : 50px;
+                    padding : 10px;}
+    </style>
+
+    <style>
+        #txt_DC1_DMZ p:hover, #txt_DC2_DMZ p:hover,
+        #txt_DC1_INT p:hover, #txt_DC2_INT p:hover, 
+        #txt_DC1_SIA p:hover, #txt_DC2_SIA p:hover {position: absolute;
+                                                    transform: scale(2);
+                                                    z-index:3;
+                                                    transition: all 0.8s ease-in-out;}
+
+        dialog::backdrop {background-color: hsl(200, 100%, 50%, 0.5);}
+
+        .modal_DC1_DMZ, .modal_DC2_DMZ, 
+        .modal_DC1_INT, .modal_DC2_INT,
+        .modal_DC1_SIA, .modal_DC2_SIA {top:50%;
+                                        left:50%;
+                                        translate: -50% -50%;
+                                        width:90%;
+                                        height:90vh;}
+
+        .modal_DC1_DMZ button, .modal_DC2_DMZ button,
+        .modal_DC1_INT button, .modal_DC2_INT button,
+        .modal_DC1_SIA button, .modal_DC2_SIA button {margin-top:5%;
+                                                    vertical-align: center;
+                                                    transform: scale(1.4);}
+
+    /*****/
+
+        .modal_DC1_DMZ button:hover img {
+            /* transform:translateX(30px); */
+            animation-name: anim_graph_DC1_DMZ;
+            animation-duration: 1.5s;
+            animation-iteration-count: 1;
+            animation-timing-function:ease-out;}
+
+    @keyframes anim_graph_DC1_DMZ {
+        0%   {transform:scale(2) translateX(-100%) translateY(-100%) rotateX(90deg) rotateY(90deg);}
+    }
+
+        .modal_DC2_DMZ button:hover img {
+            /* transform:translateX(30px); */
+            animation-name: anim_graph_DC2_DMZ;
+            animation-duration: 1.5s;
+            animation-iteration-count: 1;
+            animation-timing-function:ease-out;}
+
+    @keyframes anim_graph_DC2_DMZ {
+        0%   {transform:scale(2) translateX(100%) translateY(-100%) rotateX(90deg) rotateY(-90deg);}
+    }
+
+    /*****/
+
+        .modal_DC1_INT button:hover img {
+            /* transform:translateX(30px); */
+            animation-name: anim_graph_DC1_INT;
+            animation-duration: 1.5s;
+            animation-iteration-count: 1;
+            animation-timing-function:ease-out;}
+
+    @keyframes anim_graph_DC1_INT {
+        0%   {transform:scale(2) translateX(-100%) rotateX(90deg) rotateY(90deg);}
+    }
+
+        .modal_DC2_INT button:hover img {
+            /* transform:translateX(30px); */
+            animation-name: anim_graph_DC2_INT;
+            animation-duration: 1.5s;
+            animation-iteration-count: 1;
+            animation-timing-function:ease-out;}
+
+    @keyframes anim_graph_DC2_INT {
+        0%   {transform:scale(2) translateX(100%) rotateX(90deg) rotateY(-90deg);}
+    }
+
+    /*****/
+
+        .modal_DC1_SIA button:hover img {
+            /* transform:translateX(30px); */
+            animation-name: anim_graph_DC1_SIA;
+            animation-duration: 1.5s;
+            animation-iteration-count: 1;
+            animation-timing-function:ease-out;}
+
+    @keyframes anim_graph_DC1_SIA {
+        0%   {transform:scale(2) translateX(-100%) translateY(100%) rotateX(90deg) rotateY(90deg);}
+    }
+
+        .modal_DC2_SIA button:hover img {
+            /* transform:translateX(30px); */
+            animation-name: anim_graph_DC2_SIA;
+            animation-duration: 1.5s;
+            animation-iteration-count: 1;
+            animation-timing-function:ease-out;
+        }
+
+    @keyframes anim_graph_DC2_SIA {
+        0%   {transform:scale(2) translateX(100%) translateY(100%) rotateX(90deg) rotateY(-90deg);}
+    }
+    </style>
+
+    <link rel="icon" type="image/x-icon" href="./assets/favicon-moon.png">
+    <title>Ricard</title>
+</head>
+<body>        
+    <div id="titre">
+        <p style="margin-left:50px; text-align: start;">- <b>R</b>eporting <b>I</b>ssu de <b>C</b>entreon ... </p>
+        <p style="margin-right:50px; text-align: end;">... <b>A</b>paisant, <b>R</b>afraichissant, <b>D</b>ésaltérant -</p>
+        <p style="font-size: 2em; margin-top:20px;" class="ZoneDate"></p>
+    </div>
+    <div class="grid-container">    
+
+        <div id="DC1_DMZ" class="cell DC1_DMZ">
+            <div id="txt_DC1_DMZ">
+                <p>DC1 / DMZ</p>
+                <dialog class="modal_DC1_DMZ">
+                    <div>&Eacute;volution alerting sur zone DC1-DMZ</div>
+                    <!-- <button>Close &times;</button> -->
+                    <button>
+                        <img class="graph" src="./assets/graph_DMZ_Osny.png" alt="DC1_DMZ">
+                    </button>
+                </dialog>
+            </div>
+            <img class="img_DC1_DMZ" src="./assets/verreBallon-transparent.png" alt="verreBallon">
+        </div>
+        <div id="DC2_DMZ" class="cell DC2_DMZ">
+            <div id="txt_DC2_DMZ">
+                <p>DC2 / DMZ</p>
+                <dialog class="modal_DC2_DMZ">
+                    <div>&Eacute;volution alerting sur zone DC2-DMZ</div>
+                    <!-- <button>Close &times;</button> -->
+                    <button>
+                        <img class="graph" src="./assets/graph_DMZ_Auze.png" alt="DC2_DMZ">
+                    </button>
+                </dialog>
+            </div>
+            <img class="img_DC2_DMZ" src="./assets/verreAllonge-transparent.png" alt="verreAllonge">
+        </div>
+        <div id="DC1_INT" class="cell DC1_INT">
+            <div id="txt_DC1_INT">
+                <p>DC1 / INT</p>
+                <dialog class="modal_DC1_INT">
+                    <div>&Eacute;volution alerting sur zone DC1-Interne</div>
+                    <!-- <button>Close &times;</button> -->
+                    <button>
+                        <img class="graph" src="./assets/graph_INT_Osny.png" alt="DC1_INT">
+                    </button>
+                </dialog>
+            </div>
+            <img class="img_DC1_INT" src="./assets/brocPlastique-transparent.png" alt="brocPlastique">
+        </div>
+        <div id="DC2_INT" class="cell DC2_INT">
+            <div id="txt_DC2_INT">
+                <p>DC2 / INT</p>
+                <dialog class="modal_DC2_INT">
+                    <div>&Eacute;volution alerting sur zone DC2-Interne</div>
+                    <!-- <button>Close &times;</button> -->
+                    <button>
+                        <img class="graph" src="./assets/graph_INT_Auze.png" alt="DC2_INT">
+                    </button>
+                </dialog>
+            </div>
+            <img class="img_DC2_INT" src="./assets/brocCeramique-transparent.png" alt="brocCeramique">
+        </div>
+        <div id="DC1_SIA" class="cell DC1_SIA">
+            <div id="txt_DC1_SIA">
+                <p>DC1 / SIA</p>
+                <dialog class="modal_DC1_SIA">
+                    <div>&Eacute;volution alerting sur zone DC1-SIA</div>
+                    <!-- <button>Close &times;</button> -->
+                    <button>
+                        <img class="graph" src="./assets/graph_SIA_Osny.png" alt="DC1_SIA">
+                    </button>
+                </dialog>
+            </div>
+            <img class="img_DC1_SIA_verre" src="./assets/verreAllonge-transparent.png" alt="verreAllonge">
+            <img class="img_DC1_SIA" src="./assets/bouteilleEdition2024-transparent.png" alt="bouteilleEdition2024">
+        </div>
+        <div id="DC2_SIA" class="cell DC2_SIA">
+            <div id="txt_DC2_SIA">
+                <p>DC2 / SIA</p>
+                <dialog class="modal_DC2_SIA">
+                    <div>&Eacute;volution alerting sur zone DC2-SIA</div>
+                    <!-- <button>Close &times;</button> -->
+                    <button>
+                        <img class="graph" src="./assets/graph_SIA_Auze.png" alt="DC2_SIA">
+                    </button>
+                </dialog>
+            </div>
+            <img class="img_DC2_SIA_verre" src="./assets/verreBallon-transparent.png" alt="verreBallon">
+            <img class="img_DC2_SIA" src="./assets/bouteilleFruiteCitron-transparent.png" alt="bouteilleFruiteCitron">
+        </div>
+
+    </div>
+        
+    <div class="piedpage">
+        <p><i>4nt0n10 S3D3N0</i></p>
+        <p><i>Sponsored by <a href="https://www.ricard.com/" target="_blank">ricard.com</a></i></p>
+    </div>
+
+    <script>
+        const div_DC1_DMZ = document.getElementById("DC1_DMZ");
+        const div_DC2_DMZ = document.getElementById("DC2_DMZ");
+        const div_DC1_INT = document.getElementById("DC1_INT");
+        const div_DC2_INT = document.getElementById("DC2_INT");
+        const div_DC1_SIA = document.getElementById("DC1_SIA");
+        const div_DC2_SIA = document.getElementById("DC2_SIA");
+
+        const txt_DC1_DMZ = document.getElementById("txt_DC1_DMZ");
+        const txt_DC2_DMZ = document.getElementById("txt_DC2_DMZ");
+        const txt_DC1_INT = document.getElementById("txt_DC1_INT");
+        const txt_DC2_INT = document.getElementById("txt_DC2_INT");
+        const txt_DC1_SIA = document.getElementById("txt_DC1_SIA");
+        const txt_DC2_SIA = document.getElementById("txt_DC2_SIA");
+
+        txt_DC1_DMZ.addEventListener('mouseover', function(){
+            console.log('mouseover txt_DC1_DMZ'); div_DC1_DMZ.style.borderColor="#51E0FF";})
+        txt_DC1_DMZ.addEventListener('mouseleave', function(){
+            console.log('mouseleave txt_DC1_DMZ'); div_DC1_DMZ.style.borderColor="#FFC700";})
+        txt_DC2_DMZ.addEventListener('mouseover', function(){
+            console.log('mouseover txt_DC2_DMZ'); div_DC2_DMZ.style.borderColor="#51E0FF";})
+        txt_DC2_DMZ.addEventListener('mouseleave', function(){
+            console.log('mouseleave txt_DC2_DMZ'); div_DC2_DMZ.style.borderColor="#FFC700";})
+
+        txt_DC1_INT.addEventListener('mouseover', function(){
+            console.log('mouseover txt_DC1_INT'); div_DC1_INT.style.borderColor="#51E0FF";})
+        txt_DC1_INT.addEventListener('mouseleave', function(){
+            console.log('mouseleave txt_DC1_INT'); div_DC1_INT.style.borderColor="#FFC700";})
+        txt_DC2_INT.addEventListener('mouseover', function(){
+            console.log('mouseover txt_DC2_INT'); div_DC2_INT.style.borderColor="#51E0FF";})
+        txt_DC2_INT.addEventListener('mouseleave', function(){
+            console.log('mouseleave txt_DC2_INT'); div_DC2_INT.style.borderColor="#FFC700";})
+
+        txt_DC1_SIA.addEventListener('mouseover', function(){
+            console.log('mouseover txt_DC1_SIA'); div_DC1_SIA.style.borderColor="#51E0FF";})
+        txt_DC1_SIA.addEventListener('mouseleave', function(){
+            console.log('mouseleave txt_DC1_SIA'); div_DC1_SIA.style.borderColor="#FFC700";})
+        txt_DC2_SIA.addEventListener('mouseover', function(){
+            console.log('mouseover txt_DC2_SIA'); div_DC2_SIA.style.borderColor="#51E0FF";})
+        txt_DC2_SIA.addEventListener('mouseleave', function(){
+            console.log('mouseleave txt_DC2_SIA'); div_DC2_SIA.style.borderColor="#FFC700";})
+
+    // ******************************************************************* //
+
+        const openDC1_DMZ = document.querySelector(".DC1_DMZ p");
+        const closDC1_DMZ = document.querySelector(".modal_DC1_DMZ button");
+        const modalDC1_DMZ = document.querySelector(".modal_DC1_DMZ");
+        const openDC2_DMZ = document.querySelector(".DC2_DMZ p");
+        const closDC2_DMZ = document.querySelector(".modal_DC2_DMZ button");
+        const modalDC2_DMZ = document.querySelector(".modal_DC2_DMZ");
+
+        openDC1_DMZ.addEventListener("click", () => {modalDC1_DMZ.showModal()})
+        closDC1_DMZ.addEventListener("click", () => {modalDC1_DMZ.close()})
+        openDC2_DMZ.addEventListener("click", () => {modalDC2_DMZ.showModal()})
+        closDC2_DMZ.addEventListener("click", () => {modalDC2_DMZ.close()})
+
+
+        const openDC1_INT = document.querySelector(".DC1_INT p");
+        const closDC1_INT = document.querySelector(".modal_DC1_INT button");
+        const modalDC1_INT = document.querySelector(".modal_DC1_INT");
+        const openDC2_INT = document.querySelector(".DC2_INT p");
+        const closDC2_INT = document.querySelector(".modal_DC2_INT button");
+        const modalDC2_INT = document.querySelector(".modal_DC2_INT");
+
+        openDC1_INT.addEventListener("click", () => {modalDC1_INT.showModal()})
+        closDC1_INT.addEventListener("click", () => {modalDC1_INT.close()})
+        openDC2_INT.addEventListener("click", () => {modalDC2_INT.showModal()})
+        closDC2_INT.addEventListener("click", () => {modalDC2_INT.close()})
+
+
+        const openDC1_SIA = document.querySelector(".DC1_SIA p");
+        const closDC1_SIA = document.querySelector(".modal_DC1_SIA button");
+        const modalDC1_SIA = document.querySelector(".modal_DC1_SIA");
+        const openDC2_SIA = document.querySelector(".DC2_SIA p");
+        const closDC2_SIA = document.querySelector(".modal_DC2_SIA button");
+        const modalDC2_SIA = document.querySelector(".modal_DC2_SIA");
+
+        openDC1_SIA.addEventListener("click", () => {modalDC1_SIA.showModal()})
+        closDC1_SIA.addEventListener("click", () => {modalDC1_SIA.close()})
+        openDC2_SIA.addEventListener("click", () => {modalDC2_SIA.showModal()})
+        closDC2_SIA.addEventListener("click", () => {modalDC2_SIA.close()})
+    </script>
+
+    <script>
+        const fetchJour = () => {
+            return new Promise((resolve, reject) => (
+            fetch("./assets/date_json.json")
+                .then(res => res.json())
+                .then(data => resolve(data[0]))
+                .catch(err => reject(err))
+            ))
+        }
+
+        async function getDate() {
+            const jour = await fetchJour()
+
+            console.log("jour  : " + jour.substring(15,17));
+            console.log("mois  : " + jour.substring(12,14));
+            console.log("annee : " + jour.substring(7,11));
+
+            let mois = "";
+
+            switch (jour.substring(12,14)) {
+                case "01": mois = "janvier"; break;
+                case "02": mois = "février"; break;
+                case "03": mois = "mars"; break;
+                case "04": mois = "avril"; break;
+                case "05": mois = "mai"; break;
+                case "06": mois = "juin"; break;
+                case "07": mois = "juillet"; break;
+                case "08": mois = "août"; break;
+                case "09": mois = "septembre"; break;
+                case "10": mois = "octobre"; break;
+                case "11": mois = "novembre"; break;
+                case "12": mois = "décembre"; break;
+            }
+
+            let datelib = "Chronogrammes du " + 
+                            jour.substring(15,17) + " " +
+                            mois + " " + jour.substring(7,11);
+
+            console.log(datelib);
+
+            const ZoneDate = document.querySelector(".ZoneDate");
+
+            window.addEventListener("load", (event) => {
+                console.log("page complètement chargée, insertion date d'hier...");
+                ZoneDate.innerText = datelib;
+            });
+        }
+
+        getDate()
+    </script>
+
+</body>
+</html>
